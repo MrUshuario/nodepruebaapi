@@ -11,7 +11,7 @@ app.listen(PORT, () => {
 });
 
 //MIDDLEWARE
-//app.use(express.json()); //// Middleware para parsear JSON
+app.use(express.json()); //// Middleware para parsear JSON
 app.use(morgan("dev"));
 
 // Rutas
@@ -20,9 +20,13 @@ app.get('/', (req, res) => {
   });
 
   app.get('/productos', async (req, res) => {
+    try {
     const connection = await database.getConnection();
     const result =  await connection.query("SELECT * from productos");
     console.log(result)
-    
-
+    res.json(result);
+} catch (error) {
+    console.error('Error al consultar la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener los productos' });
+  }
   });
