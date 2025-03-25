@@ -58,11 +58,6 @@ app.use(express.json()); //// Middleware para parsear JSON
 app.use(morgan("dev"));
 app.use(cors(corsOptionsDelegate));
 
-// Rutas
-app.get('/', (req, res) => {
-    res.send('¡Hola, mundo!');
-  });
-
   //VERIFICAR CORREO
   app.use('/api', apisrutas);
 
